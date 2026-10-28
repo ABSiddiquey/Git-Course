@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>বাংলা ১ম পত্র (বিলাসী,প্রত্যাবর্তনের লজ্জা ও প্রতিদান) ২১ আগস্ট ২০২৬ রোজ শুক্রবার</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #0f172a;
+      color: #e5e7eb;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background: #1f2937;
+      padding: 24px;
+      border-radius: 12px;
+      max-width: 500px;
+      width: 100%;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    }
+    h1, h2 {
+      text-align: center;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      margin-bottom: 12px;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      background: #10b981;
+      color: #022c22;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+    button:hover {
+      background: #22c55e;
+    }
+    .option {
+      background: #374151;
+      color: #e5e7eb;
+      margin-top: 8px;
+    }
+    .option:hover {
+      background: #4b5563;
+    }
+    .score-item {
+      background: #374151;
+      padding: 8px;
+      border-radius: 6px;
+      margin-top: 6px;
+    }
+  </style>
+</head><body>
+  <div class="container">
+    <h1>বাংলা ১ম পত্র (বিলাসী,প্রত্যাবর্তনের লজ্জা ও প্রতিদান) ২১ আগস্ট ২০২৬ রোজ শুক্রবার</h1>
+
+    <!-- Name Input -->
+    <div id="nameBox">
+      <h2>আপনার নাম  লিখুন হে জ্ঞান পিপাসু</h2>
+      <input id="username" placeholder="আপনার নাম">
+      <button onclick="startQuiz()">Start Quiz</button>
+    </div>
+
+    <!-- Quiz -->
+    <div id="quizBox" style="display:none;">
+      <h2 id="question"></h2>
+      <p id="timer" style="font-weight:bold; color:#10b981; font-size:18px;"></p>
+
+      <div id="options"></div>
+      <p id="progress"></p>
+    </div>
+
+    <!-- Final Score -->
+    <div id="finalBox" style="display:none;">
+      <h2 id="finalScore"></h2>
+      <button onclick="restart()">Restart Quiz</button>
+    </div>
+
+    <!-- Score History -->
+    <div id="historyBox" style="display:none;">
+      <h2>Previous Scores</h2>
+      <div id="historyList"></div>
+    </div>
+  </div>
+
+<script>
+const questions = [
+  { question:"১)শরৎচন্দ্র চট্টোপাধ্যায় কত বছর বয়সে সন্ন্যাসী হয়ে গৃহত্যাগ করেন?", options:["ক)২২ বছর","খ)২৪ বছর","গ)৩০ বছর","ঘ)৩৫ বছর"], answer:1 },
+  { question:"২)মৃত্যুঞ্জয়ের কিসের বাগান ছিল?", options:["ক)জাম-লিচুর","খ)কাঁঠাল-লিচুর","গ)আম-জামের","ঘ)আম-কাঁঠালের"], answer:3 },
+  { question:"৩)স্কুলের পথে মাঝেমধ্যে ন্যাড়ার সঙ্গে কার দেখা হতো?", options:["ক)বিলাসী","খ)খুড়া","গ)মৃত্যুঞ্জয়","ঘ)বিলাসীর বাবা"], answer:2 },
+  { question:"৪)‘বিলাসী’ গল্পে মৃত্যুঞ্জয় কোন ক্লাসের ছাত্র ছিল?", options:["ক)ফার্স্ট","খ)সেকেন্ড","গ)থার্ড","ঘ)ফোর্থ"], answer:2},
+  { question:"৫)স্কুলে যাওয়ার দুই ক্রোশের মধ্যে এমন আরও কয়টি গ্রাম পার হতে হয়?",options:["ক)৩","খ)৪","গ)৫","ঘ)৭"],answer:0},
+  { question:"৬)‘বিলাসী’ গল্পের পল্লিবালকদের কোন সময় ধুলার সাগর পাড়ি দিয়ে স্কুলে যেতে হতো?",options:["ক)গ্রীষ্মকালে","খ)বসন্তকালে","গ)শীতকালে","ঘ)হেমন্তকালে"],answer:0},
+  { question:"৭)পল্লীগ্রামের ছেলেদের বিদ্যা অর্জনের জন্য সকাল কয়টায় বের হতে হয়?",options:["ক)৫টায়","খ)৬টায়","গ)৭টায়","ঘ)৮টায়"],answer:3},
+  { question:"৮)ন্যাড়াদের বিদ্যালয়ে যাতায়াতে কত ক্রোশ পথ পাড়ি দিতে হতো?",options:["ক)দুই","খ)তিন","গ)চার ","ঘ)ছয়"],answer:2},
+  { question:"৯)শরৎচন্দ্র চট্টোপাধ্যায় রচিত উপন্যাস কোনটি?",options:["ক)দুর্গেশনন্দিনী","খ)মন্দির","গ)গৃহদাহ ","ঘ)গোরা"],answer:2},
+  { question:"১০)শরৎচন্দ্র চট্টোপাধ্যায় কত সালে মৃত্যুবরণ করেন?",options:["ক)১৯৩৬","খ)১৯৩৭","গ)১৯৩৮","ঘ)১৯৩৯"],answer:2},
+  { question:"১১)‘তুমি না আগলালে সে রাত্তিরে আমাকে তারা মেরেই ফেলত।’—উক্তিটি কার?",options:[" ক)মৃত্যুঞ্জয়ের","খ)খুড়ার","গ)বিলাসীর","ঘ)ন্যাড়ার"],answer:2},
+  { question:"১২)‘মাঝে মাঝে আমাদের গুরু–শিষ্যের সহিত বিলাসী তর্ক করিত।’ কী বিষয়ে?",options:["ক)সাপ ধরা","খ)শিকড় বিক্রি","গ)বিষ সংগ্রহ","ঘ)বিষদাঁত ভাঙা"],answer:1},
+  { question:"১৩)ছোটবাবু গ্রামের বারোয়ারি পূজার জন্য কত টাকা দান করেন?",options:["ক)একশত","খ)দুইশত","গ)পাঁচশত","ঘ)এক হাজার"],answer:1},
+  { question:"১৪)মুখোপাধ্যায়ের বিধবা পুত্রবধূ মনের বৈরাগ্যে কত বছর কাশীবাস করেন?",options:[" ক)দুই","খ)তিন","গ)চার","ঘ)পাঁচ"],answer:0},
+  { question:"১৫)‘বাবুরা, আমাকে একটিবার ছেড়ে দাও।’— উক্তিটি কার?",options:["ক. বিলাসী","খ. ন্যাড়া","গ. মৃত্যুঞ্জয় ","ঘ. খুড়া"],answer:0},
+  { question:"১৬)ন্যাড়ার আত্মীয়ের সংসার কত বছরের?",options:["ক. পনেরো","খ. বিশ","গ. পঁচিশ ","ঘ. ত্রিশ"],answer:2},
+  { question:"১৭)‘ওরে বাপরে! আমি একলা থাকতে পারব না।’– উক্তিটি কার?",options:["ক. বিলাসীর","খ. ন্যাড়ার","গ. খুড়ার","ঘ. গল্পকথকের আত্মীয়ের স্ত্রীর"],answer:3},
+  { question:"১৮)লেখক কত দিন মৃত্যুঞ্জয়ের খবর নেননি?",options:["ক. প্রায় এক মাস","খ. প্রায় দুই মাস","গ. প্রায় তিন মাস","ঘ. প্রায় চার মাস"],answer:1},
+  { question:"১৯)কে মৃত্যুঞ্জয়কে বাঁচিয়ে তোলার ভার গ্রহণ করে?",options:["ক. বিলাসী ","খ. খুড়া","গ. ন্যাড়া","ঘ. বিলাসীর বাবা"],answer:0},
+  { question:"২০)‘বিলাসী’ গল্পে মৃত্যুঞ্জয় কয় মাস ধরে শয্যাগত ছিল?",options:["ক. এক","খ. দুই","গ. দেড়","ঘ. আড়াই"],answer:2},
+  { question:"২১)কবিকে কেউ বিষ-ভরা বাণ দিলে কবি তাকে কী প্রতিদান দেন?",options:["ক.উদার স্নেহ ","খ.বুকভরা গান","গ.বুকভরা বেদনা","ঘ. বুকভরা গানের সুর"],answer:1},
+  { question:"২২)‘প্রতিদান’ কবিতা মোট কত চরণের?",options:["ক. ১৬","খ. ১৭","গ.১৮ ","ঘ. ১৯"],answer:2},
+  { question:"২৩)কবি কাকে আপন করার জন্য কেঁদে বেড়ান?",options:["ক.কবি প্রিয়াকে","খ. যে কবিকে পর করেছে ","গ.যে কবিকে ভালোবেসেছে ","ঘ.যে কবির মন ভেঙেছে"],answer:1},
+  { question:"২৪)‘প্রতিদান’ কবিতায় কোন ফুলের নাম উল্লেখ আছে?",options:["ক.হলুদ ফুল ","খ.সাদা ফুল ","গ.লাল ফুল ","ঘ.রঙিন ফুল "],answer:3},
+  { question:"২৫)‘প্রতিদান’ কবিতায় কবি দীর্ঘ রাতকে কী বলেছেন?",options:["ক.বড় রাত ","খ.দীঘল রাত ","গ.দীঘল প্রহর ","ঘ. শূন্য প্রহর"],answer:1},
+  { question:"২৬)‘মালঞ্চ’ শব্দের অর্থ কী?",options:["ক. মালি ","খ.ফুলের বাগান ","গ.গোলাপ ফুলের বাগান ","ঘ. রজনীগন্ধা ফুলের বাগান"],answer:1},
+  { question:"২৭)‘নিরন্তর’ শব্দের অর্থ কী?",options:["ক.সব সময়  ","খ.সময় ","গ.নিয়ত  ","ঘ. নিরিবিলি"],answer:2},
+  { question:"২৮)‘প্রতিদান’ কবিতাটি জসীমউদ্​দীনের কোন কাব্যগ্রন্থ থেকে সংকলিত হয়েছে?",options:["ক.ধানখেত ","খ.রঙিলা নায়ের মাঝি ","গ.বালুচর ","ঘ.সোজন বাদিয়ার ঘাট "],answer:2},
+  { question:"২৯)কবি অনিষ্টকারীকে প্রতিদানে কী করেছেন?",options:["ক.ঘৃণা ","খ.অপমান ","গ.উপকার ","ঘ.আপন "],answer:2},
+  { question:"৩০)নিচের কোন বানানটি ঠিক?",options:["ক.জসীমউদ্দীন ","খ.জসিমউদ্দীন ","গ.জসীমউদ্​দীন ","ঘ. জসিম উদ্দীন"],answer:1},
+  { question:"৩১)“নীলবর্ণ আলোর সংকেত” মানে কী?",options:["ক.ট্রেন ছেড়ে দেবার সংকেত ","খ. বাস চলার সংকেত","গ. গাড়ি আসার সংকেত ","ঘ.সূর্যাস্তের সংকেত "],answer:0},
+  { question:"৩২)কবি বাড়ি ফিরে এসে কোন ধর্মীয় বাক্য মনে করেন?",options:["ক. আলহামদুলিল্লাহ ","খ.ফাবি আইয়ে আলা ই-রাব্বিকুমা তুকাজ্বিবান ","গ.আসসালামু আলাইকুম","ঘ.আল্লাহু আকবর "],answer:1},
+  { question:"৩৩)কবির বাড়িতে ফিরে আসায় কে খুশি ?",options:["ক.আব্বা ","খ.আম্মা ","গ.ভাইবোনেরা ","ঘ.শহরের মানুষ "],answer:1},
+  { question:"৩৪)কবি কোথায় ট্রেন মিস করার পর কুয়াশায় কাঁপছেন?",options:["ক.শহরের সড়কে ","খ. ঘরে","গ. নদীর কাছে ","ঘ. অখ্যাত স্টেশনে "],answer:3},
+  { question:"৩৫)“বাসি বাসন” এর মানে কী?",options:["ক.নতুন বাসন ","খ.অপরিষ্কার থালা ","গ.পরিষ্কার বাসন ","ঘ.খাবারের থালা "],answer:1},
+  { question:"৩৬)“ফাবি আইয়ে আলা ই-রাব্বিকুমা তুকাজ্বিবান… .” এর অর্থ কী?",options:["ক.তুমি আমার সাথে এমন আচরণ করবে কেন?","খ. তোমরা তোমাদের পালনকর্তার কোন কোন অনুগ্রহকে অস্বীকার করবে? ","গ.তুমি কি আমার কথা শোনো? ","ঘ.এই প্রশ্নের কোন অর্থ নেই "],answer:1},
+  { question:"৩৭)কবি কীভাবে তার ফিরে আসার লজ্জা মুছে ফেললেন?",options:["ক.বাবা-মায়ের কথা শুনে ","খ.মায়ের স্নেহে জড়িয়ে ","গ.গান গেয়ে ","ঘ.অন্ধকারে দাড়িয়ে "],answer:1},
+  { question:"৩৮)কবি যখন বাড়ি ফিরলেন, তার মা কী বললেন?",options:["ক.“তুমি কোথায় ছিলে?” ","খ.“তুমি না থাকলে আমাদের ঘর শূন্য হয়ে যায়.” ","গ.“তুমি এসে ভাল হলো.” ","ঘ. “তোমার জন্য অপেক্ষা করছিলাম.” "],answer:1},
+  { question:"৩৯)কবি বাড়ি ফিরতে গিয়ে কী দেখেছিলেন?",options:["ক.পাহাড়, নদী, বাগান ","খ.খালি রাস্তা ও অন্ধকার ","গ.বাজার, রাস্তায় মানুষ ","ঘ.নদী, গ্রাম, আটচালা ঘর "],answer:3},
+  { question:"৪০)আল মাহমুদের প্রকৃত নাম কী ছিল?",options:["ক. আল মাহমুদ হোসেন ","খ.আবদুস শুকুর মাহমুদ ","গ.মির আবদুস শুকুর আল মাহমুদ ","ঘ.মির আবদুল মজিদ "],answer:2},
+
+];
+
+let index = 0;
+let score = 0;
+let user = "";
+let totalTime = 1200;   // 20 minutes = 1200 seconds (change to 1800 for 30 mins)
+let globalTimerId = null;
+let userAnswers = [];   // stores selected answers
+let timeTaken = 0;      // track time spent
+
+
+function startQuiz() {
+  user = document.getElementById("username").value.trim();
+  if (!user) { alert("Enter your name"); return; }
+
+  document.getElementById("nameBox").style.display = "none";
+  document.getElementById("quizBox").style.display = "block";
+
+  startGlobalTimer();   //  Start the global timer
+  loadQuestion();
+}
+
+function loadQuestion() {
+  const q = questions[index];
+  document.getElementById("question").innerText = q.question;
+
+  const optBox = document.getElementById("options");
+  optBox.innerHTML = "";
+
+  q.options.forEach((opt, i) => {
+    const btn = document.createElement("button");
+    btn.className = "option";
+    btn.innerText = opt;
+    btn.onclick = () => checkAnswer(i);
+    optBox.appendChild(btn);
+  });
+
+  document.getElementById("progress").innerText =
+    `Question ${index+1} of ${questions.length}`;
+}
+
+function checkAnswer(i) {
+  userAnswers[index] = i;   // store selected answer
+
+  if (i === questions[index].answer) score++;
+  index++;
+
+  if (index < questions.length) loadQuestion();
+  else finishQuiz();
+}
+function showFullReview() {
+  const reviewBox = document.createElement("div");
+  reviewBox.style.marginTop = "20px";
+  reviewBox.style.padding = "15px";
+  reviewBox.style.background = "#1f2937";
+  reviewBox.style.borderRadius = "10px";
+
+  let html = "<h2>Full Review</h2>";
+
+  questions.forEach((q, i) => {
+    const userAns = userAnswers[i];
+    const correctAns = q.answer;
+
+    html += `
+      <div style="background:#374151; padding:10px; border-radius:8px; margin-top:10px;">
+        <p><strong>${i+1}. ${q.question}</strong></p>
+        <p>✔ Correct Answer: <span style="color:#10b981;">${q.options[correctAns]}</span></p>
+        <p>🟦 Your Answer: 
+          <span style="color:${userAns === correctAns ? '#10b981' : '#ef4444'};">
+            ${userAns !== null ? q.options[userAns] : "No answer given"}
+          </span>
+        </p>
+      </div>
+    `;
+  });
+
+  reviewBox.innerHTML = html;
+  document.getElementById("finalBox").appendChild(reviewBox);
+}
+
+
+function finishQuiz() {
+  clearInterval(globalTimerId);
+  document.getElementById("quizBox").style.display = "none";
+  document.getElementById("finalBox").style.display = "block";
+
+  document.getElementById("finalScore").innerText =
+    `${user}, your score is ${score}/${questions.length}`;
+
+  // TIME TAKEN
+  const minutes = Math.floor(timeTaken / 60);
+  const seconds = timeTaken % 60;
+
+  const timeMsg = `Time Taken: ${minutes}m ${seconds}s`;
+
+  const timeDisplay = document.createElement("p");
+  timeDisplay.style.fontWeight = "bold";
+  timeDisplay.style.color = "#10b981";
+  timeDisplay.innerText = timeMsg;
+
+  document.getElementById("finalBox").appendChild(timeDisplay);
+
+  saveScore();
+  showHistory();
+  showFullReview();   // show all questions + answers + your choices
+}
+
+function startGlobalTimer() {
+  globalTimerId = setInterval(() => {
+    timeTaken++;     // NEW: count time spent
+    totalTime--;     // countdown
+
+
+    let minutes = Math.floor(totalTime / 60);
+    let seconds = totalTime % 60;
+
+    document.getElementById("timer").innerText =
+      `Time Left: ${minutes}m ${seconds}s`;
+
+    if (totalTime <= 0) {
+      clearInterval(globalTimerId);
+      finishQuiz();   // 🔥 Auto-submit when time ends
+    }
+  }, 1000);
+}
+
+function saveScore() {
+  const record = {
+    name: user,
+    score: score,
+    total: questions.length,
+    time: new Date().toLocaleString()
+  };
+
+  let history = JSON.parse(localStorage.getItem("quizScores")) || [];
+  history.push(record);
+  localStorage.setItem("quizScores", JSON.stringify(history));
+}
+
+function showHistory() {
+  document.getElementById("historyBox").style.display = "block";
+
+  const history = JSON.parse(localStorage.getItem("quizScores")) || [];
+  const list = document.getElementById("historyList");
+  list.innerHTML = "";
+
+  history.forEach(h => {
+    const div = document.createElement("div");
+    div.className = "score-item";
+    div.innerText = `${h.name} — ${h.score}/${h.total} (${h.time})`;
+    list.appendChild(div);
+  });
+}
+
+function restart() {
+  index = 0;
+  score = 0;
+  clearInterval(globalTimerId);   //  stop previous timer
+  totalTime = 1200;               //  reset timer to 20 mins (or 1800 for 30 mins)
+  document.getElementById("finalBox").style.display = "none";
+  document.getElementById("historyBox").style.display = "none";
+  document.getElementById("nameBox").style.display = "block";
+}
+</script>
+
+</body>
+</html>
